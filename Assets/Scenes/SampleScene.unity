@@ -442,6 +442,15 @@ MonoBehaviour:
   _leftActivateAction: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _rightActivateAction: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _grabbableCube: {fileID: 8621842648633918336, guid: 117eceb1e83f9f44584187f6c3ffec01, type: 3}
+  _seatObject: {fileID: 0}
+  _tableObject: {fileID: 0}
+  _bedObject: {fileID: 0}
+  _floorObject: {fileID: 0}
+  _couchObject: {fileID: 0}
+  _doorObject: {fileID: 0}
+  _windowObject: {fileID: 0}
+  _wallObject: {fileID: 0}
+  _ceilingObject: {fileID: 0}
   _planeManager: {fileID: 781714767}
 --- !u!1001 &1349729813
 PrefabInstance:
@@ -583,6 +592,15 @@ MonoBehaviour:
   _leftActivateAction: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _rightActivateAction: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   _grabbableCube: {fileID: 8621842648633918336, guid: 117eceb1e83f9f44584187f6c3ffec01, type: 3}
+  _seatObject: {fileID: 1420293330484668230, guid: 98d20372954afee40b8d1bf9956217f4, type: 3}
+  _tableObject: {fileID: 7514753372893503267, guid: aaade4b9c424c294384c45112a099305, type: 3}
+  _bedObject: {fileID: 0}
+  _floorObject: {fileID: 0}
+  _couchObject: {fileID: 8621842648633918336, guid: 117eceb1e83f9f44584187f6c3ffec01, type: 3}
+  _doorObject: {fileID: 0}
+  _windowObject: {fileID: 0}
+  _wallObject: {fileID: 0}
+  _ceilingObject: {fileID: 0}
   _planeManager: {fileID: 1349729817}
 --- !u!114 &1349729817
 MonoBehaviour:
@@ -848,7 +866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1793063060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,31 +897,7 @@ MonoBehaviour:
         m_CallState: 2
   m_PermissionGranted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1687703433}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &1793063061
 Transform:
   m_ObjectHideFlags: 0
@@ -1673,12 +1667,12 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1793063061}
   - {fileID: 410087041}
   - {fileID: 347888927}
   - {fileID: 1687703436}
   - {fileID: 1923548099}
   - {fileID: 1936307853}
   - {fileID: 1349729813}
-  - {fileID: 1793063061}
   - {fileID: 1431838757}
   - {fileID: 550819510}

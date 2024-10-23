@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-public class SceneController: MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     [SerializeField]
     private InputActionReference _togglePlanesAction;
@@ -19,6 +19,16 @@ public class SceneController: MonoBehaviour
 
     [SerializeField]
     private GameObject _grabbableCube;
+
+    public GameObject _seatObject;
+    public GameObject _tableObject;
+    public GameObject _bedObject;
+    public GameObject _floorObject;
+    public GameObject _couchObject;
+    public GameObject _doorObject;
+    public GameObject _windowObject;
+    public GameObject _wallObject;
+    public GameObject _ceilingObject;
 
     [SerializeField]
     //private GameObject _prefab;
@@ -36,7 +46,7 @@ public class SceneController: MonoBehaviour
         Debug.Log("Checking Planes...");
 
         _planeManager = GetComponent<ARPlaneManager>();
-        if(_planeManager == null)
+        if (_planeManager == null)
         {
             Debug.LogWarning("No planes detected");
         }
@@ -54,14 +64,13 @@ public class SceneController: MonoBehaviour
         //This are unity events
         _planeManager.trackablesChanged.AddListener(OnPlanesChanged);
         _anchorManager.trackablesChanged.AddListener(OnAnchorsChanged);
-
     }
 
     private void OnAnchorsChanged(ARTrackablesChangedEventArgs<ARAnchor> args)
     {
-        foreach(var removedAnchor in args.removed)
+        foreach (var removedAnchor in args.removed)
         {
-            if(removedAnchor.Value != null)
+            if (removedAnchor.Value != null)
             {
                 _anchors.Remove(removedAnchor.Value);
                 Destroy(removedAnchor.Value.gameObject);
@@ -114,7 +123,7 @@ public class SceneController: MonoBehaviour
 
         Vector3 spawnPosition;
 
-        foreach(var plane in _planeManager.trackables)
+        foreach (var plane in _planeManager.trackables)
         {
             if (plane.classifications.HasFlag(PlaneClassifications.Table))
             {
@@ -125,15 +134,63 @@ public class SceneController: MonoBehaviour
 
         }
     }
+    private void SpawnCustomItems()
+    {
+        foreach (var plane in _planeManager.trackables)
+        {
+            if (plane.classifications.HasFlag(PlaneClassifications.Floor))
+            {
+                if (_floorObject != null)
+                    Instantiate(_floorObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.WallFace))
+            {
+                if (_wallObject != null)
+                    Instantiate(_wallObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.Ceiling))
+            {
+                if (_ceilingObject != null)
+                    Instantiate(_ceilingObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.Table))
+            {
+                if (_tableObject != null)
+                    Instantiate(_tableObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.Couch))
+            {
+                if (_couchObject != null)
+                    Instantiate(_couchObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.Seat))
+            {
+                if (_seatObject != null)
+                    Instantiate(_seatObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.DoorFrame))
+            {
+                if (_doorObject != null)
+                    Instantiate(_doorObject, plane.transform.position, Quaternion.identity);
+            }
+            if (plane.classifications.HasFlag(PlaneClassifications.WindowFrame))
+            {
+                if (_windowObject != null)
+                    Instantiate(_windowObject, plane.transform.position, Quaternion.identity);
+            }
+
+        }
+
+    }
 
     private void OnTogglePlanesAction(InputAction.CallbackContext obj)
     {
         _isVisible = !_isVisible;
         float fillAlpha = _isVisible ? 0.3f : 0.0f;
-        float lineAlpha = _isVisible? 1.0f : 0.0f;
+        float lineAlpha = _isVisible ? 1.0f : 0.0f;
 
         Debug.Log("Tracked " + _planeManager.trackables.count + " planes");
-        foreach(var plane in _planeManager.trackables)
+        foreach (var plane in _planeManager.trackables)
         {
             SetPlaneAlpha(plane, fillAlpha, lineAlpha);
         }
@@ -155,7 +212,7 @@ public class SceneController: MonoBehaviour
             Debug.LogError("Plane doesn't have mesh");
         }
 
-        if(lineRenderer != null)
+        if (lineRenderer != null)
         {
             Color startColor = lineRenderer.startColor;
             Color endColor = lineRenderer.endColor;
@@ -174,13 +231,16 @@ public class SceneController: MonoBehaviour
         {
             _numPlanesAddedOccurred++;
 
-            foreach(var plane in _planeManager.trackables)
+            foreach (var plane in _planeManager.trackables)
             {
                 PrintPlaneLabel(plane);
             }
 
             Debug.Log("Number of planes: " + _planeManager.trackables.count);
             Debug.Log("Number of planes added " + _numPlanesAddedOccurred);
+
+
+            SpawnCustomItems();
         }
     }
 

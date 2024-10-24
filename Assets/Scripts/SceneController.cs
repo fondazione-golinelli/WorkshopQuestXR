@@ -98,19 +98,19 @@ public class SceneController : MonoBehaviour
     //    }
     //}
 
-    //private async void CreateAnchorAsync(Pose pose)
-    //{
-    //    var result = await _anchorManager.TryAddAnchorAsync(pose);
+    private async void CreateAnchorAsync(Pose pose, GameObject _prefab)
+    {
+        var result = await _anchorManager.TryAddAnchorAsync(pose);
 
-    //    if (result.status.IsSuccess())
-    //    {
-    //        var anchor = result.value as ARAnchor;
-    //        _anchors.Add(anchor);
+        if (result.status.IsSuccess())
+        {
+            var anchor = result.value as ARAnchor;
+            _anchors.Add(anchor);
 
-    //        GameObject instance = Instantiate(_prefab, anchor.pose.position, anchor.pose.rotation);
-    //        instance.transform.SetParent(anchor.transform);
-    //    }
-    //}
+            GameObject instance = Instantiate(_prefab, anchor.pose.position, anchor.pose.rotation);
+            instance.transform.SetParent(anchor.transform);
+        }
+    }
 
     private void OnRightActivateAction(InputAction.CallbackContext obj)
     {
@@ -138,45 +138,47 @@ public class SceneController : MonoBehaviour
     {
         foreach (var plane in _planeManager.trackables)
         {
+            Pose pose = new Pose(plane.transform.position, plane.transform.rotation);
+
             if (plane.classifications.HasFlag(PlaneClassifications.Floor))
             {
                 if (_floorObject != null)
-                    Instantiate(_floorObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _floorObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.WallFace))
             {
                 if (_wallObject != null)
-                    Instantiate(_wallObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _wallObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.Ceiling))
             {
                 if (_ceilingObject != null)
-                    Instantiate(_ceilingObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _ceilingObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.Table))
             {
                 if (_tableObject != null)
-                    Instantiate(_tableObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _tableObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.Couch))
             {
                 if (_couchObject != null)
-                    Instantiate(_couchObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _couchObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.Seat))
             {
                 if (_seatObject != null)
-                    Instantiate(_seatObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _seatObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.DoorFrame))
             {
                 if (_doorObject != null)
-                    Instantiate(_doorObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _doorObject);
             }
             if (plane.classifications.HasFlag(PlaneClassifications.WindowFrame))
             {
                 if (_windowObject != null)
-                    Instantiate(_windowObject, plane.transform.position, Quaternion.identity);
+                    CreateAnchorAsync(pose, _windowObject);
             }
 
         }

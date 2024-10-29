@@ -13,6 +13,8 @@ public class SceneController : MonoBehaviour
     private InputActionReference _leftActivateAction;
     [SerializeField]
     private InputActionReference _rightActivateAction;
+    [SerializeField]
+    PlaneClassifications planeSpawn;
 
     //[SerializeField]
     //private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor _leftRayInteractor;
@@ -125,7 +127,7 @@ public class SceneController : MonoBehaviour
 
         foreach (var plane in _planeManager.trackables)
         {
-            if (plane.classifications.HasFlag(PlaneClassifications.Table))
+            if (plane.classifications.HasFlag(planeSpawn))
             {
                 spawnPosition = plane.transform.position;
                 spawnPosition.y += 0.3f;
